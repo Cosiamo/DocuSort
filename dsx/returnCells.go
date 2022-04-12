@@ -7,6 +7,10 @@ import (
 )
 
 // returns values of cells from an array of strings and ints
+//
+// for test0 := range dsx.Group(file, sheet, columns, rows) {
+// 	fmt.Println(test0)
+// }
 func Group(f *excelize.File, sheet string, columns []string, rows []int) (chan string) {
 	cellVals := make(chan string)
 	go func() {
@@ -30,7 +34,7 @@ func Group(f *excelize.File, sheet string, columns []string, rows []int) (chan s
 	return cellVals
 }
 
-// returns all data from the spreadsheet
+// returns all data from the spreadsheet by column
 func AllDataByCols(f *excelize.File, sheet string) (chan string) {
 	ch := make(chan string)
 	go func() {
@@ -54,6 +58,7 @@ func AllDataByCols(f *excelize.File, sheet string) (chan string) {
 	return ch
 }
 
+// returns all data from the spreadsheet by row
 func AllDataByRows(f *excelize.File, sheet string) (chan string) {
 	ch := make (chan string)
 	go func() {

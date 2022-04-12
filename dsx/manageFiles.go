@@ -6,7 +6,7 @@ import (
 	"github.com/xuri/excelize/v2"
 )
 
-// opens files in .xlsx format
+// opens .xlsx files
 func OpenXlsx(fileName string) (f *excelize.File) {
 	f, err := excelize.OpenFile(fileName)
 	if err != nil {
@@ -17,7 +17,7 @@ func OpenXlsx(fileName string) (f *excelize.File) {
 	return f
 }
 
-// closes files in .xlsx format
+// closes .xlsx files
 func CloseXlsx(f *excelize.File) {
 	if err := f.Close(); err != nil {
 		fmt.Println(err)

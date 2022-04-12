@@ -120,6 +120,11 @@ var (
 	zz = 702
 )
 
+// returns a range of int slices
+//
+// for res := range dsx.RangeOfRows(startRow, endRow) {
+// 	fmt.Println(res)
+// }
 func RangeOfRows(startRow int, endRow int) chan []int {
 	ch := make(chan []int)
 	i := startRow
@@ -133,6 +138,11 @@ func RangeOfRows(startRow int, endRow int) chan []int {
 	return ch
 }
 
+// returns a range of string slices
+// 
+// for res := range dsx.RangeOfCols(startCol, endCol) {
+// 	fmt.Println(res)
+// }
 func RangeOfCols(startCol string, endCol string) (chan []string) {
 	ch := make(chan []string)
 	var wg sync.WaitGroup
@@ -244,6 +254,8 @@ func RangeOfCols(startCol string, endCol string) (chan []string) {
 	return ch
 }
 
+// loops string slices within paramters of the global
+// variables that were mapped in the slices.go file
 func MulStringValLoop(wg *sync.WaitGroup, ch chan []string, start int, end int) {
 	defer wg.Done()
 	for i := start; i <= end; i++ {

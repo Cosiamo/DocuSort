@@ -7,6 +7,10 @@ import (
 )
 
 // returns a map of coordinates of cells from an array of strings and ints
+//
+// for test5 := range dsx.MapGroupCoords(testCol5, testRow5) {
+// 	fmt.Println(test5)
+// }
 func MapGroupCoords(columns []string, rows []int) (chan map[int]int) {
 	ch := make(chan map[int]int)
 	go func() {
