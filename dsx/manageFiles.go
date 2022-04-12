@@ -17,7 +17,7 @@ func OpenXlsx(fileName string) (f *excelize.File) {
 	return f
 }
 
-// // closes files in .xlsx format
+// closes files in .xlsx format
 func CloseXlsx(f *excelize.File) {
 	if err := f.Close(); err != nil {
 		fmt.Println(err)
