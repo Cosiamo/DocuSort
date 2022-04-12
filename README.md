@@ -8,6 +8,7 @@ DocuSort is a collection of Go packages that are meant to make sorting `.xlsx`, 
 		- [Group method](#group-method)
 		- [RangeOfRows method](#rangeofrows-method)
 		- [RangeOfCols method](#rangeofcols-method)
+	- [Map group coordinates](#mapgroupcoords-method)
     - [Get all data by rows](#to-get-all-data-by-row)
     - [Get all data by columns](#to-get-all-data-by-column)
 
@@ -101,6 +102,24 @@ func main() {
 	}
 }
 ```
+
+### MapGroupCoords method
+Maps the cells coordinates to the parameters that are provided.
+```go
+func main() {
+	file := dsx.OpenXlsx("spreadsheets/testSheet.xlsx")
+	defer dsx.CloseXlsx(f)
+	sheet := "Sheet1"
+
+	var columns []string = []string{"A", "B", "C", "D"}
+	var rows []int = []int{2, 3, 4, 5, 6}
+	for res := range dsx.MapGroupCoords(columns, rows) {
+		fmt.Println(res)
+	}
+}
+```
+
+<img src="/imgs/MapGroupCoordsRes.png">
 
 ### To get all data by row
 ```go
