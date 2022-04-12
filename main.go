@@ -9,7 +9,7 @@ import (
 // The main func for DocuSort serves as testing for dsx,
 // as well as, showing examples for GitHub
 func main() {
-	// open files
+	// opens files
 	file := dsx.OpenXlsx("spreadsheets/testSheet.xlsx")
 	// closes files
 	defer dsx.CloseXlsx(file)
@@ -52,5 +52,13 @@ func main() {
 	for test4 := range dsx.AllDataByRows(file, sheet) {
 		fmt.Print(test4)
 		fmt.Println()
+	}
+
+	var testCol5 []string = []string{"A", "B", "C", "D"}
+	var testRow5 []int = []int{2, 3, 4, 5, 6}
+	// returns the coordinates of cells from the params passed
+	// dsx.MapGroupCoords(columns []string, rows []int) chan map[int]int
+	for test5 := range dsx.MapGroupCoords(testCol5, testRow5) {
+		fmt.Println(test5)
 	}
 }
