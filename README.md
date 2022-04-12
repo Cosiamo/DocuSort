@@ -5,13 +5,16 @@ DocuSort is a collection of Go packages that are meant to make sorting `.xlsx`, 
 - [dsx](#dsx)
     - [Open and close files](#opening-and-closing-files)
     - [Group columns and rows](#group-columns-and-rows)
+		- [Group method](#group-method)
+		- [RangeOfRows method](#rangeofrows-method)
+		- [RangeOfCols method](#rangeofcols-method)
     - [Get all data by rows](#to-get-all-data-by-row)
     - [Get all data by columns](#to-get-all-data-by-column)
 
 ## dsx
 Uses the Go package [excelize](https://github.com/qax-os/excelize) to access `.xlsx` files. Dsx has built in methods to make tasks that involve large data sets much simpler.
 
-#### Installation
+### Installation
 ```
 go get github.com/Cosiamo/DocuSort/dsx
 ```
@@ -21,7 +24,7 @@ import (
 )
 ```
 
-#### Opening and closing files
+### Opening and closing files
 ```go 
 func main() {
     // OpenXlsx("[PATH]/<file name>")
@@ -32,7 +35,8 @@ func main() {
 }
 ```
 
-#### Group columns and rows
+### Group columns and rows
+#### Group method
 This is for when you need to get specific groups of data. Let's say you're working with a spreadsheet that has list of computers. In column "A" you have the brand names, in column "B" the product number, in column "C" the MAC address, and column "D" if they're active or not. If you want to get all data from a specific brand, the `Group` method will return all the cells with the relevant info.
 ```go 
 func main() {
@@ -54,6 +58,7 @@ func main() {
 
 <img src="/imgs/FuncGroupRes.png">
 
+#### RangeOfRows method
 If you're working with dozens, hundreds, or even thousands of rows that you need grouped, the `RangeOfRows` method will let you set a start-row and end-row so you don't have to manually type in all row numbers. (This gives the same result as the previous example)
 ```go
 func main() {
@@ -74,7 +79,30 @@ func main() {
 }
 ```
 
-#### To get all data by row
+#### RangeOfCols method
+If you're working a lot of columns, the `RangeOfCols` method will let you set a start-column and end-column. It can take values anywhere from "A" to "ZZ".
+```go
+func main() {
+	file := dsx.OpenXlsx("spreadsheets/testSheet.xlsx")
+	defer dsx.CloseXlsx(f)
+	sheet := "Sheet1"
+
+	startCol := "A"
+	endCol := "D"
+	startRow := 2
+	endRow := 6
+	for rows := range dsx.RangeOfRows(startRow, endRow) {
+		// returns string slices within params passed into the method
+		for columns := range RangeOfCols(startCol, endCol) {
+			for res := range dsx.Group(file, sheet, columns, rows) {
+				fmt.Println(res)
+			}
+		}
+	}
+}
+```
+
+### To get all data by row
 ```go
 func main() {
 	file := dsx.OpenXlsx("spreadsheets/testSheet.xlsx")
@@ -91,7 +119,7 @@ func main() {
 
 <img src="/imgs/AllDataByRowsRes.png">
 
-#### To get all data by column
+### To get all data by column
 ```go 
 func main() {
 	file := dsx.OpenXlsx("spreadsheets/testSheet.xlsx")
