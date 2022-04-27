@@ -26,7 +26,6 @@ func Group(f *excelize.File, sheet string, columns []string, rows []int) (chan s
 					fmt.Println(err)
 					return
 				}
-				cellVal = append(cellVal, " ")
 				cellVals <- cellVal
 			}
 		}
